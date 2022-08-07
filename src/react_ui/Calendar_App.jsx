@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Cohort from './components/Cohort';
+import Cohort from './components/Cohort.jsx';
 
 function CalendarApp() {
   // app should store weeks, current month, chosen cohort

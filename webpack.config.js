@@ -8,6 +8,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  devServer: {
+    static: {
+      publicPath: '/',
+      directory: path.resolve(__dirname)
+    },
+    port: 8080,
+  },
   module: {
     rules: [
       {
@@ -15,8 +22,22 @@ module.exports = {
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+              "targets": "defaults"
+            }],
+            '@babel/preset-react'
+            ]
+          }
         }]
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Development',
+      template: 'index.html'
+    })
+  ]
 }
