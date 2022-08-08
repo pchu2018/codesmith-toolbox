@@ -1,0 +1,40 @@
+$background: #f9f9f9;
+$card-background: white;
+$border-radius: 5px;
+$regular-font-color: #4c4c4c;
+$shadow: 0 8px 9px -9px rgb(0 0 0 / 30%);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Source Sans Pro;
+}
+
+body {
+  width: 100vw;
+  background-color: $background;
+  color: $regular-font-color;
+}
+#root {
+  width: 500px;
+  margin: 20px;
+}
+
+.cal-app {
+  width: 100%;
+  height: 600px;
+  background-color: $card-background;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  width: 100%;
+  box-shadow: $shadow;
+}
+
+.cohort-container {
+  display: flex;
+}
