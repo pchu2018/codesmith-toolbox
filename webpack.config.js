@@ -14,11 +14,12 @@ module.exports = {
       directory: path.resolve(__dirname)
     },
     port: 8080,
+    open: true,
   },
   module: {
     rules: [
       {
-        test: /\.(jsx|js)$/,
+        test: /.(jsx|js)$/,
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
@@ -31,6 +32,10 @@ module.exports = {
             ]
           }
         }]
+      },
+      {
+        test: /.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

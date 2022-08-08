@@ -1,36 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import components
 import Cohort from './components/Cohort.jsx';
+import Week from './components/Week.jsx';
+// import styling
+import './stylesheets/calendar.scss';
 
 function CalendarApp() {
-  // app should store weeks, current month, chosen cohort
+  // app should store current day, list of calendars, chosen cohort
+  const [fetched, setFetch] = useState(false);
   const [cohort, setCohort] = useState('');
-  const [weeks, setWeeks] = useState({});
-  const [currMonth, setMonth] = useState('');
+  const [firstDay, setDay] = useState(new Date().toLocaleDateString());
+  const [calIDs, setCals] = useState('');
+  const [currCal, setCalendar] = useState({});
+
+  // fetch initialState from server
+  useEffect( () => {
+    // if cohort is set, fetch calendar from api
+    if (cohort && !fetched) {
+      fetch(calIDs[cohort])
+      .then(response => response.json())
+      .then(data => {
+        setCalendar(data.items)
+      })
+    }
+  })
+  // fetch cals and store in state
+  useEffect( () => {
+    // only fetch if cals aren't already stored in state
+    if (!calIDs) {
+      fetch('./src/node_server/calendar_ids.json')
+      .then(response => response.json())
+      .then(data => {
+        // retrieves object with cohort keys and api values
+        setCals(data);
+        }
+      )
+      .catch(error => console.log(error))
+    }
+    // if calID is set, fetch calendar information
+  })
+
+    
 
   // record user selection of cohort and display correct calendar
   const selectCohort = (userSelection) => {
-    // check if user selection exists in cal ids
-    // userSelection should be in format 'cohort #'
-    fetch('/cal_ids')
-      .then(data => {
-        if (userSelection in data) {
-          setCohort(userSelection);
-        }
-      })
-    // if if does, setCohort
+    // set state
+      setCohort(userSelection);
+    // post data to server
   }
 
-  // fetch calendar data and store in weeks
 
   return (
     <div className='cal-app'>
-      <h1 id='cal-header'>Weekly Calendar</h1>
-      <Cohort />
+      <div className='app-header' id='cal-header'>
+        <h1>Week of {firstDay}{cohort && <span> for {cohort}</span>}</h1>
+        <Cohort 
+        calIDs = {calIDs}
+        selectCohort = {selectCohort}/>
+      </div>
+     
       {cohort
-        ? <p>Calendar placeholder</p>
+        ? <Week 
+          firstDay = {firstDay}
+          currCal = {currCal}/>
         : <p>Please select a valid cohort.</p>
       }
-      
     </div>
   )
 }
