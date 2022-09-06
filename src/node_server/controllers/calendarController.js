@@ -2,13 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const calendarController = {
-  saveCohort: (req, res, next) => {
-    // pull cohort from req body and write to file
-    fs.writeFileSync(path.resolve(__dirname, '../data/cohort.json'), JSON.stringify(req.body));
-    res.locals.cohort = req.body;
-    return next();
-  },
-
   getCalendars: (req, res, next) => {
     try {
       // fetch calendar ids from json
@@ -25,7 +18,19 @@ const calendarController = {
       next(err)
     }
     
-  }
+  },
+  
+  getCohort: (req, res, next) => {
+
+  },
+
+  saveCohort: (req, res, next) => {
+    // pull cohort from req body and write to file
+    fs.writeFileSync(path.resolve(__dirname, '../data/cohort.json'), JSON.stringify(req.body));
+    res.locals.cohort = req.body;
+    return next();
+  },
+
 }
 
 module.exports = calendarController;

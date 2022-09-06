@@ -17,6 +17,12 @@ app.get('/calendar',
     res.status(200).json(res.locals.cals);
 });
 
+// ROUTES FOR COHORT
+app.get('/cohort',
+  calendarController.getCohort,
+  (req, res) => {
+
+  })
 app.post('/cohort', 
   calendarController.saveCohort,
   (req, res) => {

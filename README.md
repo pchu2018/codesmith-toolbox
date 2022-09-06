@@ -1,7 +1,15 @@
 # codesmith-toolbox
 
-first draft of solo project ideas:
-- mini calendar
-- help desk generator
-- task manager
-- shout-outs saver
+mini cohort calendar!
+mvp features:
+- select from any active cohort in codesmith
+- displays current week (default) with event times and descriptions
+- toggle between available calendar weeks
+- persists cohort selection after app reload
+
+stretch features:
+- displays zoom links for applicable events
+- enables link adding/editing
+- ui animations such as hover on event, etc.
+- event styling for past/current events
+- DARK MODE... and themes

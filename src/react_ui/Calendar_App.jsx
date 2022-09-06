@@ -14,16 +14,16 @@ function CalendarApp() {
   const [currCal, setCalendar] = useState({});
 
   // fetch initialState from server --> should only fire when app is loaded
-  // useEffect( () => {
-  //   if (!fetched) {
-  //     fetch('/cohort')
-  //     .then(response => response.json())
-  //     .then(data => {
+  useEffect( () => {
+    if (!fetched) {
+      fetch('/cohort')
+      .then(response => response.json())
+      .then(data => {
         
-  //     })
-  //     setFetch(true);
-  //   }
-  // })
+      })
+      setFetch(true);
+    }
+  })
   
   // fetch cals and store in state -> should only fire when app is loaded
   useEffect( () => {
@@ -71,14 +71,13 @@ function CalendarApp() {
     .then(data => console.log(data))
   }
 
-  // renders cohort selecter and week container
+  // renders cohort selector and week container
   return (
     <div className='cal-app'>
       <div className='app-header' id='cal-header'>
         <h1>Week of {firstDay}{cohort.cohort && <span> for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
         <Cohort 
         calIDs = {calIDs}
-        setFetch = {setFetch}
         selectCohort = {selectCohort}/>
       </div>
      
