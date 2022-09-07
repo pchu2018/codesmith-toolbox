@@ -1,11 +1,16 @@
 import React from 'react';
 
+const weekParser = ({currCal, firstDay} = props) => {
+  const days = {};
+  // iterate over events and check for ones matching current day
+
+}
+
 function Week(props) {
-  // parse calendar info into current week
+  // iterate over days object and render day components
 
   return (
     <div className='week-container'>
-
     </div>
   )
 }

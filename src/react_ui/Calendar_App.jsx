@@ -7,54 +7,58 @@ import './stylesheets/calendar.scss';
 
 function CalendarApp() {
   // app should store current day, list of calendars, chosen cohort
-  const [fetched, setFetch] = useState(false);
   const [cohort, setCohort] = useState({cohort: '', num: ''});
   const [firstDay, setDay] = useState(new Date().toLocaleDateString());
   const [calIDs, setCals] = useState('');
-  const [currCal, setCalendar] = useState({});
+  const [currCal, setCalendar] = useState([]);
 
+  // ** USEEFFECT HOOK CALLBACKS ** //
   // fetch initialState from server --> should only fire when app is loaded
-  useEffect( () => {
-    if (!fetched) {
+  const fetchCohort = () => {
+    if (!cohort.cohort) {
       fetch('/cohort')
       .then(response => response.json())
       .then(data => {
-        
+        setCohort(data);
       })
-      setFetch(true);
     }
-  })
-  
-  // fetch cals and store in state -> should only fire when app is loaded
-  useEffect( () => {
-    // only fetch if cals aren't already stored in state
+  }
+  // if calID is set, fetch calendar information
+  const fetchcalIDs = () => {
+      // only fetch if cals aren't already stored in state
     if (!calIDs) {
       fetch('/calendar')
       .then(response => response.json())
       .then(data => {
         // retrieves object with cohort keys and api values
-        console.log(data);
+        console.log('calIDs', data);
         setCals(data);
         }
       )
       .catch(error => console.log(error))
     }
-    // if calID is set, fetch calendar information
-  })
-
+  }
   // fetch calendar and loads data for chosen cohort
-  useEffect( () => {
+  const fetchCalendar = () => {
     // if cohort is set, fetch calendar from api
-    if (cohort.cohort && !currCal) {
+    if (cohort.cohort && !currCal[0]) {
       fetch(calIDs[`${cohort.cohort} ${cohort.num}`])
       .then(response => response.json())
       .then(data => {
-        setCalendar(data.items);
+        console.log('calendar', data.items.slice(0, 100));
+        setCalendar(data.items.slice(0, 100));
       })
     }
-  })
+  }
 
+    // useeffect hook for fetching
+  useEffect( () => {
+    fetchCohort();
+    fetchcalIDs();
+    fetchCalendar();
+  } )
 
+  
   // ** hook wrappers to be passed to child components ** //
 
   // record user selection of cohort to display correct calendar
@@ -77,6 +81,7 @@ function CalendarApp() {
       <div className='app-header' id='cal-header'>
         <h1>Week of {firstDay}{cohort.cohort && <span> for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
         <Cohort 
+        cohort = {cohort}
         calIDs = {calIDs}
         selectCohort = {selectCohort}/>
       </div>

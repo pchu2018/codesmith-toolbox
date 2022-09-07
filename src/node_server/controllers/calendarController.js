@@ -21,7 +21,9 @@ const calendarController = {
   },
   
   getCohort: (req, res, next) => {
-
+    const cohort = fs.readFileSync(path.resolve(__dirname, '../data/cohort.json'));
+    res.locals.cohort = JSON.parse(cohort);
+    return next();
   },
 
   saveCohort: (req, res, next) => {

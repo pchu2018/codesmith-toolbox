@@ -21,7 +21,7 @@ app.get('/calendar',
 app.get('/cohort',
   calendarController.getCohort,
   (req, res) => {
-
+    res.status(200).json(res.locals.cohort);
   })
 app.post('/cohort', 
   calendarController.saveCohort,
