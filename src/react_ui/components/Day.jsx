@@ -17,6 +17,7 @@ function Day(props) {
 
   return(
     <div className = 'day-container'>
+      testing
       <h2>{props.date.toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: '2-digit'})}</h2>
       {events}
     </div>

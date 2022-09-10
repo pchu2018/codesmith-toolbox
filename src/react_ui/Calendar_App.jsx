@@ -94,7 +94,7 @@ function CalendarApp() {
         ? <Week 
           firstDay = {firstDay}
           currCal = {currCal}/>
-        : <p>Please select a valid cohort.</p>
+        : <p id='select-warning'>Please select a valid cohort.</p>
       }
     </div>
   )

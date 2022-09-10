@@ -18,23 +18,32 @@ body {
 }
 #root {
   width: 500px;
-  margin: 20px;
+  margin: 20px auto;
 }
 
+// ** MAIN APP ELEMENTS ** //
 .cal-app {
   width: 100%;
   height: 600px;
+  margin: auto;
   background-color: $card-background;
   border-radius: $border-radius;
   display: flex;
   flex-direction: column;
 }
-
 .app-header {
   width: 100%;
   box-shadow: $shadow;
+  padding: 10px;
+}
+#select-warning {
+  margin: 50px auto;
 }
 
+// ** COHORT SELECTION COMPONENT ** //
 .cohort-container {
   display: flex;
+  padding: 20px;
 }
+
+

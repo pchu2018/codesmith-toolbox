@@ -1,14 +1,23 @@
 const path = require('path');
 const express = require('express');
+const webpack = require('webpack');
+const webpackConfig = require('../../webpack.config');
+const compiler = webpack(webpackConfig);
 
 const calendarController = require('./controllers/calendarController');
 
 
 const app = express();
 const PORT = 8080;
-
+ 
 app.use('/', express.static(path.resolve(__dirname, '../../dist')));
 app.use(express.json());
+// webpack middleware for hot reloading
+app.use(require("webpack-dev-middleware")(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
+}));
+app.use(require("webpack-hot-middleware")(compiler));
 
 // ROUTES FOR CALENDAR
 app.get('/calendar', 

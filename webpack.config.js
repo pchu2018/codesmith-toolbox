@@ -1,12 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.js'),
+  entry: [path.resolve(__dirname, 'src', 'index.js'),
+  'webpack-hot-middleware/client'],
   mode: "development",
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/dist/bundle'
   },
   devServer: {
     static: {
@@ -43,6 +46,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Development',
       template: 'index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 }
