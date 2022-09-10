@@ -8,7 +8,7 @@ import './stylesheets/calendar.scss';
 function CalendarApp() {
   // app should store current day, list of calendars, chosen cohort
   const [cohort, setCohort] = useState({cohort: '', num: ''});
-  const [firstDay, setDay] = useState(new Date().toLocaleDateString());
+  const [firstDay, setDay] = useState(new Date());
   const [calIDs, setCals] = useState('');
   const [currCal, setCalendar] = useState([]);
 
@@ -20,6 +20,7 @@ function CalendarApp() {
       .then(response => response.json())
       .then(data => {
         setCohort(data);
+        console.log(data)
       })
     }
   }
@@ -42,7 +43,10 @@ function CalendarApp() {
   const fetchCalendar = () => {
     // if cohort is set, fetch calendar from api
     if (cohort.cohort && !currCal[0]) {
-      fetch(calIDs[`${cohort.cohort} ${cohort.num}`])
+      let currDate = firstDay.toISOString().replace(':', '%3A');
+      const calURI = calIDs[`${cohort.cohort} ${cohort.num}`] + currDate;
+
+      fetch(calURI)
       .then(response => response.json())
       .then(data => {
         console.log('calendar', data.items.slice(0, 100));
@@ -79,7 +83,7 @@ function CalendarApp() {
   return (
     <div className='cal-app'>
       <div className='app-header' id='cal-header'>
-        <h1>Week of {firstDay}{cohort.cohort && <span> for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
+        <h1>Week of {firstDay.toLocaleDateString()}{cohort.cohort && <span> for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
         <Cohort 
         cohort = {cohort}
         calIDs = {calIDs}
