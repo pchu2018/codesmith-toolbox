@@ -2,7 +2,11 @@ $background: #f9f9f9;
 $card-background: white;
 $border-radius: 5px;
 $regular-font-color: #4c4c4c;
+$light-font-color: white;
 $shadow: 0 8px 9px -9px rgb(0 0 0 / 30%);
+$border: 1px solid lightgrey;
+
+$event: lightblue;
 
 * {
   margin: 0;
@@ -19,6 +23,7 @@ body {
 #root {
   width: 500px;
   margin: 20px auto;
+
 }
 
 // ** MAIN APP ELEMENTS ** //
@@ -30,6 +35,8 @@ body {
   border-radius: $border-radius;
   display: flex;
   flex-direction: column;
+  box-shadow: $shadow;  
+  border: $border;
 }
 .app-header {
   width: 100%;
@@ -46,4 +53,23 @@ body {
   padding: 20px;
 }
 
-
+// ** WEEK DAY EVENT ** //
+.week-container {
+  overflow: auto;
+  padding: 10px;
+}
+.day-container {
+  display: flex;
+  flex-direction: column;
+}
+.event-container {
+  background-color: $event;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+}
+.event-top {
+  
+}

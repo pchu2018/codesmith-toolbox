@@ -9,13 +9,15 @@ const calendarController = require('./controllers/calendarController');
 
 const app = express();
 const PORT = 8080;
- 
+
 app.use('/', express.static(path.resolve(__dirname, '../../dist')));
 app.use(express.json());
 // webpack middleware for hot reloading
 app.use(require("webpack-dev-middleware")(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    writeToDisk: true,
+    writeToDisk: (filePath) => {
+      return /bundle/.test(filePath);
+    }
 }));
 app.use(require("webpack-hot-middleware")(compiler));
 

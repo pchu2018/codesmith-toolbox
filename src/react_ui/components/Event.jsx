@@ -6,8 +6,10 @@ function Event(props) {
 
   return (
     <div className='event-container'>
-      <span className='event-desc'>{props.description}</span>
-      <span className='event-time'>{startTime} - {endTime}</span>
+      <div className='event-top'>
+        <span className='event-desc'>{props.description}</span>
+        <span className='event-time'>{startTime} - {endTime}</span>
+      </div>
       <p className='event-location'>{props.location}</p>
     </div>
   )

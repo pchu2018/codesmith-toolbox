@@ -8,7 +8,7 @@ import './stylesheets/calendar.scss';
 function CalendarApp() {
   // app should store current day, list of calendars, chosen cohort
   const [cohort, setCohort] = useState({cohort: '', num: ''});
-  const [firstDay, setDay] = useState(new Date());
+  const [firstDay, setDay] = useState(new Date('2022-09-13'));
   const [calIDs, setCals] = useState('');
   const [currCal, setCalendar] = useState([]);
 
@@ -24,7 +24,7 @@ function CalendarApp() {
       })
     }
   }
-  // if calID is set, fetch calendar information
+  // if calID is set, fetch calendar information 
   const fetchcalIDs = () => {
       // only fetch if cals aren't already stored in state
     if (!calIDs) {
@@ -32,8 +32,8 @@ function CalendarApp() {
       .then(response => response.json())
       .then(data => {
         // retrieves object with cohort keys and api values
-        console.log('calIDs', data);
         setCals(data);
+        console.log(data)
         }
       )
       .catch(error => console.log(error))
@@ -42,14 +42,13 @@ function CalendarApp() {
   // fetch calendar and loads data for chosen cohort
   const fetchCalendar = () => {
     // if cohort is set, fetch calendar from api
-    if (cohort.cohort && !currCal[0]) {
+    if (cohort.cohort && calIDs && !currCal[0]) {
       let currDate = firstDay.toISOString().replace(':', '%3A');
       const calURI = calIDs[`${cohort.cohort} ${cohort.num}`] + currDate;
 
       fetch(calURI)
       .then(response => response.json())
       .then(data => {
-        console.log('calendar', data.items.slice(0, 100));
         setCalendar(data.items.slice(0, 100));
       })
     }
@@ -69,6 +68,7 @@ function CalendarApp() {
   const selectCohort = (userSelection) => {
     // set state -> userSelection should be sent as object
     setCohort(userSelection);
+    console.log('new cohort', userSelection, cohort)
     // post data to server
     fetch('/cohort', {
       method: 'POST',

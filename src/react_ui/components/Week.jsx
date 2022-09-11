@@ -10,16 +10,17 @@ const weekParser = ({currCal, firstDay} = props) => {
     const eventDay = new Date(currCal[i].start.dateTime).getDay();
     const eventDate = new Date(currCal[i].start.dateTime);
     // console.log('weekparser', eventDay, eventDate);
-    if (eventDay >= firstWeekDay) {
+    if (eventDay <= firstWeekDay && eventDate.getDate() > firstDay.getDate()) {
+      break;
+    } 
+    // if curr event is an earlier weekday but LATER than first day 
+    else {
       // create events array and push event to correct date
       if (!days[eventDay]) days[eventDay] = {date: eventDate, events: []};
       days[eventDay].events.push(currCal[i])
-      console.log(days[eventDay].date);
-    } 
-    // if curr event is an earlier weekday but LATER than first day 
-    else if (eventDate.getTime() > firstDay.getTime()) break;
+      console.log(eventDate);
+    };
   }
-
   return days;
 }
 
