@@ -20,7 +20,7 @@ function CalendarApp() {
       .then(response => response.json())
       .then(data => {
         setCohort(data);
-        console.log(data)
+        // console.log(data)
       })
     }
   }
@@ -33,7 +33,7 @@ function CalendarApp() {
       .then(data => {
         // retrieves object with cohort keys and api values
         setCals(data);
-        console.log(data)
+        // console.log(data)
         }
       )
       .catch(error => console.log(error))
@@ -67,7 +67,9 @@ function CalendarApp() {
   // record user selection of cohort to display correct calendar
   const selectCohort = (userSelection) => {
     // set state -> userSelection should be sent as object
-    setCohort(userSelection);
+    setCohort({...userSelection});
+    // remove current calendar
+    setCalendar([]);
     console.log('new cohort', userSelection, cohort)
     // post data to server
     fetch('/cohort', {
@@ -76,7 +78,7 @@ function CalendarApp() {
       body: JSON.stringify(userSelection),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(console.log('after fetch', cohort))
   }
 
   // renders cohort selector and week container

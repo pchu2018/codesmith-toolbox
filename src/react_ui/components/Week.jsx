@@ -18,7 +18,7 @@ const weekParser = ({currCal, firstDay} = props) => {
       // create events array and push event to correct date
       if (!days[eventDay]) days[eventDay] = {date: eventDate, events: []};
       days[eventDay].events.push(currCal[i])
-      console.log(eventDate);
+      // console.log(eventDate);
     };
   }
   return days;
