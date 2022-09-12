@@ -13,3 +13,6 @@ stretch features:
 - ui animations such as hover on event, etc.
 - event styling for past/current events
 - DARK MODE... and themes
+
+all data fetched from apis listed below:
+http://slack-server-production.us-west-2.elasticbeanstalk.com/apis

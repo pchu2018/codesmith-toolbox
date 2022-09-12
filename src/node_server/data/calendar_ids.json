@@ -1,4 +1,21 @@
 {
-  "PTRI 8" : "https://www.googleapis.com/calendar/v3/calendars/c_9ijjh2gvct58658gr1n5gue4c8@group.calendar.google.com/events?orderBy=startTime&singleEvents=true&key=AIzaSyAyucc-d1nuZQnRsbMeZ1RtP04ZIdKr0qU&timeMin=",
-  "PTRI 7" : "https://www.googleapis.com/calendar/v3/calendars/c_hl0ajevgstab2sh7b6dgt1eock@group.calendar.google.com/events?orderBy=startTime&singleEvents=true&key=AIzaSyAyucc-d1nuZQnRsbMeZ1RtP04ZIdKr0qU&timeMin="
+  "PTRI" : {
+    "9": "c_b2b57bh3jrefaiiq2raqktg740",
+    "8": "c_9ijjh2gvct58658gr1n5gue4c8",
+    "7": "c_hl0ajevgstab2sh7b6dgt1eock"
+  },
+  "FTRI" : {
+    "10": "c_mkqsbjeeml0hij3di72r29i55k",
+    "9": "c_qspeu0lqoeqrs69nh1n9a6fkt4"
+  },
+  "NY" : {
+    "101": "pe13s26rvf4fud47l08ti750i0",
+    "35": "c_0cdi6i4uvvgb1voa160vaih4cs",
+    "34": "c_9qtn0db3bh1leu1t6ueun0jutk"
+  },
+  "LA" : {
+    "52": "c_mugheufb4a4alnjvjaos5ea13s",
+    "51": "c_bebmeorduongds2n5qc9mnr2sk"
+  }
 }
+

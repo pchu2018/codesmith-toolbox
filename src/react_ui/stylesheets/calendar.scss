@@ -1,12 +1,20 @@
 $background: #f9f9f9;
 $card-background: white;
-$border-radius: 5px;
+$event: #71dac4;
+$event-light: lighten($event, 10%);
+$accent: #0032a8;
+
 $regular-font-color: #4c4c4c;
 $light-font-color: white;
+
+$h1-size: 30px;
+
+$border-radius: 5px;
 $shadow: 0 8px 9px -9px rgb(0 0 0 / 30%);
+$shadow-reverse: 0 -8px 9px -9px rgb(0 0 0 / 30%);
 $border: 1px solid lightgrey;
 
-$event: lightblue;
+
 
 * {
   margin: 0;
@@ -23,7 +31,9 @@ body {
 #root {
   width: 500px;
   margin: 20px auto;
-
+}
+h1 {
+  font-size: $h1-size;
 }
 
 // ** MAIN APP ELEMENTS ** //
@@ -34,14 +44,36 @@ body {
   background-color: $card-background;
   border-radius: $border-radius;
   display: flex;
-  flex-direction: column;
-  box-shadow: $shadow;  
+  flex-direction: column;  
   border: $border;
+  box-shadow: $shadow;
 }
 .app-header {
   width: 100%;
   box-shadow: $shadow;
   padding: 10px;
+}
+#cal-title {
+  display: flex;
+  h1 {
+    flex: 1;
+  }
+}
+#week-btns-container {
+  display: flex;
+  align-items: center;
+}
+.week-btns {
+  height: min-content;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: $regular-font-color;
+  &:hover {
+  color: $accent;
+  }
 }
 #select-warning {
   margin: 50px auto;
@@ -50,20 +82,42 @@ body {
 // ** COHORT SELECTION COMPONENT ** //
 .cohort-container {
   display: flex;
-  padding: 20px;
+  padding: 20px 0;
+}
+#cohort-select {
+  margin: 0 5px;
+}
+#cohort-num {
+  width: 50px;
+  margin: 0 5px;
+}
+#submit-cohort {
+  padding: 0 5px;
+  background-color: $accent;
+  border: 1px solid $regular-font-color;
+  border-radius: $border-radius;
+  color: $light-font-color;
+  &:hover {
+    background-color: $background;
+    color: $accent;
+    border: $border;
+  }
 }
 
 // ** WEEK DAY EVENT ** //
 .week-container {
   overflow: auto;
   padding: 10px;
+  ::after {
+    box-shadow: $shadow inset;
+  }
 }
 .day-container {
   display: flex;
   flex-direction: column;
 }
 .event-container {
-  background-color: $event;
+  background: linear-gradient($event-light, $event);
   padding: 5px 10px;
   margin: 5px 0;
   border-radius: $border-radius;
@@ -71,5 +125,17 @@ body {
   flex-direction: column;
 }
 .event-top {
-  
+  display: flex;
+}
+.event-desc, .event-time {
+  flex: 1
+}
+.event-time {
+  text-align: right;
+}
+.event-location {
+  color: $light-font-color;
+  &:hover {
+    color: $accent;
+  }
 }

@@ -2,11 +2,10 @@ import React from 'react';
 
 const handleCohortBtnClick = (props) => {
   // collect cohort selection
-  const cohort = document.querySelector('#cohort-select');
-  const num = document.querySelector('#cohort-num');
-  const selection = `${cohort.value} ${num.value}`;
+  const cohort = document.querySelector('#cohort-select').value;
+  const num = document.querySelector('#cohort-num').value;
   // if valid, save to state
-  if (selection in props.calIDs) props.selectCohort({cohort: cohort.value, num: num.value});
+  if (props.calIDs[cohort][num]) props.selectCohort({cohort, num});
   // otherwise reset number field
   else num.value = '';
 }
@@ -15,7 +14,7 @@ function Cohort(props) {
 
   return (
     <div className='cohort-container'>
-      <label htmlFor='cohorts'>Program Name: </label>
+      <label htmlFor='cohorts'>Program Name:</label>
       <select name='cohorts' id='cohort-select'>
         <option value='PTRI'>PTRI</option>
         <option value='FTRI'>FTRI</option>
@@ -24,7 +23,7 @@ function Cohort(props) {
       </select>
       
       <form>
-        <label htmlFor='cohort-num'>Cohort: </label>
+        <label htmlFor='cohort-num'>Cohort:</label>
         <input type="number" name='cohort-num' id='cohort-num'/>
       </form>
       <button 
@@ -32,7 +31,7 @@ function Cohort(props) {
         onClick={e => {
           e.preventDefault();
           handleCohortBtnClick(props);
-        }}>Save Cohort</button>
+        }}>Save</button>
     </div>
   )
 }

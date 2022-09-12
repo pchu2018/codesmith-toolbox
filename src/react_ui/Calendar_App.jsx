@@ -4,11 +4,12 @@ import Cohort from './components/Cohort.jsx';
 import Week from './components/Week.jsx';
 // import styling
 import './stylesheets/calendar.scss';
+import { FaChevronRight, FaChevronLeft} from 'react-icons/fa';
 
 function CalendarApp() {
   // app should store current day, list of calendars, chosen cohort
   const [cohort, setCohort] = useState({cohort: '', num: ''});
-  const [firstDay, setDay] = useState(new Date('2022-09-13'));
+  const [firstDay, setDay] = useState(new Date());
   const [calIDs, setCals] = useState('');
   const [currCal, setCalendar] = useState([]);
 
@@ -44,7 +45,11 @@ function CalendarApp() {
     // if cohort is set, fetch calendar from api
     if (cohort.cohort && calIDs && !currCal[0]) {
       let currDate = firstDay.toISOString().replace(':', '%3A');
-      const calURI = calIDs[`${cohort.cohort} ${cohort.num}`] + currDate;
+      const calURI = 
+        'https://www.googleapis.com/calendar/v3/calendars/' 
+        + calIDs[cohort.cohort][cohort.num] 
+        + '@group.calendar.google.com/events?orderBy=startTime&singleEvents=true&key=AIzaSyAyucc-d1nuZQnRsbMeZ1RtP04ZIdKr0qU&timeMin='
+        + currDate;
 
       fetch(calURI)
       .then(response => response.json())
@@ -62,7 +67,7 @@ function CalendarApp() {
   } )
 
   
-  // ** hook wrappers to be passed to child components ** //
+  // ** hook wrappers for event handlers ** //
 
   // record user selection of cohort to display correct calendar
   const selectCohort = (userSelection) => {
@@ -81,11 +86,37 @@ function CalendarApp() {
     .then(console.log('after fetch', cohort))
   }
 
+  // change firstDay by +/- 7 days
+  const changeWeek = (direction) => {
+    const dateOffset = (24*60*60*1000) * 7 * direction;
+    setDay(new Date (firstDay.getTime() - dateOffset))
+    // reset calendar
+    setCalendar([]);
+  }
+
   // renders cohort selector and week container
   return (
     <div className='cal-app'>
       <div className='app-header' id='cal-header'>
-        <h1>Week of {firstDay.toLocaleDateString()}{cohort.cohort && <span> for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
+        <header id='cal-title'>
+          <h1>Week of {firstDay.toLocaleDateString() + ' '} 
+          {cohort.cohort && <span>for {`${cohort.cohort} ${cohort.num}`}</span>}</h1>
+          <span id='week-btns-container'>
+            <button 
+              className='week-btns'
+              id='back-week' 
+              onClick={() => {
+                changeWeek(1)
+              }}><FaChevronLeft/></button>
+            <button 
+              className='week-btns'
+              id='forward-week'
+              onClick={() => {
+                changeWeek(-1)
+              }}><FaChevronRight/></button>
+          </span>
+        </header>
+        
         <Cohort 
         cohort = {cohort}
         calIDs = {calIDs}

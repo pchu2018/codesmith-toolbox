@@ -5,12 +5,20 @@ const weekParser = ({currCal, firstDay} = props) => {
   // each day should be stored as object with date and events keys
   const days = {};
   const firstWeekDay = firstDay.getDay();
-  // iterate over events and check for ones matching current day
+  // iterate over events and check for ones within current week
   for (let i = 0; i < currCal.length; i++) {
+    // warning: lots of date format hacking below
     const eventDay = new Date(currCal[i].start.dateTime).getDay();
     const eventDate = new Date(currCal[i].start.dateTime);
+    const dateOptions = {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    }
     // console.log('weekparser', eventDay, eventDate);
-    if (eventDay <= firstWeekDay && eventDate.getDate() > firstDay.getDate()) {
+    if (eventDay <= firstWeekDay && 
+      // have to pass in these options for datestring so cal doesn't break on month change
+      (eventDate.toLocaleDateString('en-US', dateOptions) > firstDay.toLocaleDateString('en-US', dateOptions))) {
       break;
     } 
     // if curr event is an earlier weekday but LATER than first day 
